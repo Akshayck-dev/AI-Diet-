@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+﻿import { RequestHandler } from "express";
 import { getTranslation, isValidLanguage, getLanguageFromInput } from "../translations";
 
 interface ChatState {
@@ -45,11 +45,11 @@ const MEDICAL_KEYWORDS = [
   "cancer",
   "hypertension",
   "asthma",
-  "ഗർഭിണി",
-  "പ്രമേഹം",
-  "മരുന്നുകൾ",
-  "ഹൃദയം",
-  "ശസ്ത്രക്രിയ",
+  "à´—àµ¼à´­à´¿à´£à´¿",
+  "à´ªàµà´°à´®àµ‡à´¹à´‚",
+  "à´®à´°àµà´¨àµà´¨àµà´•àµ¾",
+  "à´¹àµƒà´¦à´¯à´‚",
+  "à´¶à´¸àµà´¤àµà´°à´•àµà´°à´¿à´¯",
 ];
 
 const checkMedicalContext = (message: string): boolean => {
@@ -76,7 +76,7 @@ const getSlotPrompt = (slot: string, lang: string): string => {
 
 const validateSlot = (slot: string, value: string): boolean => {
   if (slot.endsWith("_kg") || slot.endsWith("_cm")) {
-    if (value.toLowerCase() === "skip" || value.toLowerCase() === "ഒഴിവാക്കുക") {
+    if (value.toLowerCase() === "skip" || value.toLowerCase() === "à´’à´´à´¿à´µà´¾à´•àµà´•àµà´•") {
       return true;
     }
     const num = parseFloat(value);
@@ -96,15 +96,15 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
   const activity = (slots.activity_level as string).toLowerCase();
 
   const activityMultipliers: Record<string, number> = {
-    sedentary: 1.2,
-    light: 1.375,
-    moderate: 1.55,
-    active: 1.725,
-    നിശ്ചലത: 1.2,
-    ഹൽകാ: 1.375,
-    മധ്യമ: 1.55,
-    സ��ീവ: 1.725,
-  };
+  sedentary: 1.2,
+  light: 1.375,
+  moderate: 1.55,
+  active: 1.725,
+  നിശ്ചലത: 1.2,
+  ഹൽകാ: 1.375,
+  മധ്യമം: 1.55,
+  സജീവം: 1.725,
+};
 
   const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
   const tdee = bmr * (activityMultipliers[activity] || 1.55);
@@ -116,22 +116,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 1 (Monday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Oats (50g) with milk", "Sliced banana", "Almonds (10)", "Green tea"],
           calories: 400,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Dal rice (1 cup cooked)", "Mixed green salad", "Cucumber raita", "Roti (1)"],
           calories: 600,
         },
         {
-          name: "🌙 Dinner",
-          items: ["Paneer curry (light oil)", "Brown rice (½ cup)", "Steamed broccoli"],
+          name: "ðŸŒ™ Dinner",
+          items: ["Paneer curry (light oil)", "Brown rice (Â½ cup)", "Steamed broccoli"],
           calories: 500,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Greek yogurt (1 cup)", "Apple (1 medium)"],
           calories: 150,
         },
@@ -141,22 +141,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 2 (Tuesday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Whole wheat bread (2 slices)", "Boiled eggs (2)", "Tomato slices", "Lemon tea"],
           calories: 380,
         },
         {
-          name: "☀️ Lunch",
-          items: ["Grilled chicken (150g)", "Quinoa (½ cup)", "Carrot & beans salad"],
+          name: "â˜€ï¸ Lunch",
+          items: ["Grilled chicken (150g)", "Quinoa (Â½ cup)", "Carrot & beans salad"],
           calories: 620,
         },
         {
-          name: "🌙 Dinner",
-          items: ["Fish curry (light)", "Basmati rice (½ cup)", "Cucumber salad"],
+          name: "ðŸŒ™ Dinner",
+          items: ["Fish curry (light)", "Basmati rice (Â½ cup)", "Cucumber salad"],
           calories: 480,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Almonds (15)", "Orange (1)"],
           calories: 140,
         },
@@ -166,23 +166,23 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 3 (Wednesday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Idli (2) with sambar", "Coconut chutney (light)", "Black coffee"],
           calories: 350,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Dal fry (1 cup)", "Brown rice", "Mixed vegetables", "Buttermilk"],
           calories: 590,
         },
         {
-          name: "🌙 Dinner",
+          name: "ðŸŒ™ Dinner",
           items: ["Grilled paneer tikka", "Roti (2)", "Arhar dal curry (light)"],
           calories: 520,
         },
         {
-          name: "🍎 Snacks",
-          items: ["Moong sprouts (handful)", "Mango (½)"],
+          name: "ðŸŽ Snacks",
+          items: ["Moong sprouts (handful)", "Mango (Â½)"],
           calories: 120,
         },
       ],
@@ -191,22 +191,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 4 (Thursday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Poha (1 cup)", "Peanuts (small handful)", "Green chilli", "Lemon water"],
           calories: 370,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Chicken pulao (light oil)", "Cucumber raita", "Green salad"],
           calories: 610,
         },
         {
-          name: "🌙 Dinner",
+          name: "ðŸŒ™ Dinner",
           items: ["Tomato soup (with veggies)", "Multigrain roti (2)", "Steamed cauliflower"],
           calories: 500,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Curd (1 cup)", "Pomegranate (handful)"],
           calories: 130,
         },
@@ -216,22 +216,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 5 (Friday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Dosa with fill (minimal oil)", "Coconut chutney", "Sambar"],
           calories: 390,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Boiled fish (150g)", "Jasmine rice", "Vegetable curry", "Lemon juice"],
           calories: 600,
         },
         {
-          name: "🌙 Dinner",
+          name: "ðŸŒ™ Dinner",
           items: ["Paneer vegetable roll", "Roti (2)", "Mixed greens salad"],
           calories: 510,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Almonds (15)", "Papaya (1 cup)"],
           calories: 150,
         },
@@ -241,22 +241,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 6 (Saturday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Upma (semolina) with veggies", "Green tea", "Dry fruits (10g)"],
           calories: 360,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Mutton curry (light, 100g)", "Brown rice", "Arugula salad"],
           calories: 630,
         },
         {
-          name: "🌙 Dinner",
+          name: "ðŸŒ™ Dinner",
           items: ["Spinach paneer", "Roti (2)", "Mung sprout salad"],
           calories: 490,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Cashews (10)", "Guava (1)"],
           calories: 140,
         },
@@ -266,22 +266,22 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
       day: "Day 7 (Sunday)",
       meals: [
         {
-          name: "🌅 Breakfast",
+          name: "ðŸŒ… Breakfast",
           items: ["Masala oats", "Honey (1 tsp)", "Berries (handful)"],
           calories: 380,
         },
         {
-          name: "☀️ Lunch",
+          name: "â˜€ï¸ Lunch",
           items: ["Tandoori chicken (150g)", "Jeera rice", "Raita", "Salad"],
           calories: 620,
         },
         {
-          name: "🌙 Dinner",
+          name: "ðŸŒ™ Dinner",
           items: ["Lentil soup (thick)", "Multigrain bread (2 slices)", "Steamed veggies"],
           calories: 500,
         },
         {
-          name: "🍎 Snacks",
+          name: "ðŸŽ Snacks",
           items: ["Walnuts (8)", "Kiwi (2)"],
           calories: 160,
         },
@@ -289,36 +289,36 @@ const generateWeightLossPlan = (slots: Record<string, string | number>): any => 
     },
   ];
 
-  const workoutPlan = `**Week 1-2:** 3 days/week (Mon, Wed, Fri)\n• 5 min warmup (walking in place, arm circles)\n• Bodyweight exercises: 10 push-ups, 15 squats, 15 lunges → 3 sets each\n• 10 min brisk walking or jogging in place\n• 5 min cooldown (stretching all major muscle groups)\n\n**Week 3-4:** 4 days/week, increase reps by 20-30%\n• Add planks (20-30 sec), mountain climbers (15 reps)\n• Increase walking to 15 min\n• Add burpees (8 reps) for extra cardio`;
+  const workoutPlan = `**Week 1-2:** 3 days/week (Mon, Wed, Fri)\nâ€¢ 5 min warmup (walking in place, arm circles)\nâ€¢ Bodyweight exercises: 10 push-ups, 15 squats, 15 lunges â†’ 3 sets each\nâ€¢ 10 min brisk walking or jogging in place\nâ€¢ 5 min cooldown (stretching all major muscle groups)\n\n**Week 3-4:** 4 days/week, increase reps by 20-30%\nâ€¢ Add planks (20-30 sec), mountain climbers (15 reps)\nâ€¢ Increase walking to 15 min\nâ€¢ Add burpees (8 reps) for extra cardio`;
 
   const groceryList = [
-    { item: "Rice/Wheat", amount: "3 kg", price: "₹150" },
-    { item: "Lentils/Pulses", amount: "2 kg", price: "₹200" },
-    { item: "Chicken/Fish", amount: "1.5 kg", price: "₹700" },
-    { item: "Eggs", amount: "30 pieces", price: "₹150" },
-    { item: "Paneer", amount: "500g", price: "₹250" },
-    { item: "Vegetables (Seasonal)", amount: "Various", price: "₹400" },
-    { item: "Milk & Yogurt", amount: "3 L milk, 2 cups curd", price: "₹300" },
-    { item: "Nuts & Seeds", amount: "Mixed (200g)", price: "₹200" },
-    { item: "Oil & Spices", amount: "Various", price: "₹300" },
+    { item: "Rice/Wheat", amount: "3 kg", price: "â‚¹150" },
+    { item: "Lentils/Pulses", amount: "2 kg", price: "â‚¹200" },
+    { item: "Chicken/Fish", amount: "1.5 kg", price: "â‚¹700" },
+    { item: "Eggs", amount: "30 pieces", price: "â‚¹150" },
+    { item: "Paneer", amount: "500g", price: "â‚¹250" },
+    { item: "Vegetables (Seasonal)", amount: "Various", price: "â‚¹400" },
+    { item: "Milk & Yogurt", amount: "3 L milk, 2 cups curd", price: "â‚¹300" },
+    { item: "Nuts & Seeds", amount: "Mixed (200g)", price: "â‚¹200" },
+    { item: "Oil & Spices", amount: "Various", price: "â‚¹300" },
   ];
 
   const tips = [
-    "🍽️ Eat slowly and chew 25+ times per bite. This helps with digestion and makes you feel full faster!",
-    "💧 Never skip meals! Instead of 3 large meals, have 5 smaller ones. It keeps your metabolism active.",
-    "😴 Sleep 7-8 hours daily. Your body repairs and burns fat while you sleep. Recovery is EVERYTHING!",
+    "ðŸ½ï¸ Eat slowly and chew 25+ times per bite. This helps with digestion and makes you feel full faster!",
+    "ðŸ’§ Never skip meals! Instead of 3 large meals, have 5 smaller ones. It keeps your metabolism active.",
+    "ðŸ˜´ Sleep 7-8 hours daily. Your body repairs and burns fat while you sleep. Recovery is EVERYTHING!",
   ];
 
   return {
     title: "Your Personalized Weight Loss Plan",
-    emoji: "🔥",
+    emoji: "ðŸ”¥",
     dailyCalories,
     dailyProtein: proteinTarget,
     mealPlan,
     workoutPlan,
     groceryList,
     tips,
-    closing: "You've got this! 💪 Start today, see results in 4 weeks. Small steps = big changes!",
+    closing: "You've got this! ðŸ’ª Start today, see results in 4 weeks. Small steps = big changes!",
   };
 };
 
@@ -350,7 +350,7 @@ export const handleChat: RequestHandler<{}, ChatResponse, ChatRequest> = (req, r
       } else {
         return res.json({
           message: getTranslation(null, "choose_language"),
-          quickReplies: ["English 🇬🇧", "Malayalam 🇮🇳"],
+          quickReplies: ["English ðŸ‡¬ðŸ‡§", "Malayalam ðŸ‡®ðŸ‡³"],
         });
       }
     }
@@ -373,9 +373,9 @@ export const handleChat: RequestHandler<{}, ChatResponse, ChatRequest> = (req, r
       "talk to human",
       "human expert",
       "talk to agent",
-      "മനുഷ്യനോട് സംസാരിക്കണം",
-      "എഡ്മിൻ",
-      "വ്യക്തിയോട് സംസാരിക്കണം",
+      "à´®à´¨àµà´·àµà´¯à´¨àµ‹à´Ÿàµ à´¸à´‚à´¸à´¾à´°à´¿à´•àµà´•à´£à´‚",
+      "à´Žà´¡àµà´®à´¿àµ»",
+      "à´µàµà´¯à´•àµà´¤à´¿à´¯àµ‹à´Ÿàµ à´¸à´‚à´¸à´¾à´°à´¿à´•àµà´•à´£à´‚",
     ];
     if (handoffKeywords.some((kw) => userInput.includes(kw))) {
       return res.json({
@@ -390,10 +390,10 @@ export const handleChat: RequestHandler<{}, ChatResponse, ChatRequest> = (req, r
         "weight gain": "weight_gain",
         workouts: "workouts",
         "diet questions": "diet",
-        "ഭാരം കുറയ്ക്കൽ": "weight_loss",
-        "ഭാരം വർദ്ധിപ്പിക്കൽ": "weight_gain",
-        വ്യായാമം: "workouts",
-        "ഭക്ഷണ ചോദ്യങ്ങൾ": "diet",
+        "à´­à´¾à´°à´‚ à´•àµà´±à´¯àµà´•àµà´•àµ½": "weight_loss",
+        "à´­à´¾à´°à´‚ à´µàµ¼à´¦àµà´§à´¿à´ªàµà´ªà´¿à´•àµà´•àµ½": "weight_gain",
+        "workouts": "workouts",
+        "à´­à´•àµà´·à´£ à´šàµ‹à´¦àµà´¯à´™àµà´™àµ¾": "diet",
       };
 
       const selectedFlow = Object.entries(flowMap).find(([key]) =>
@@ -466,7 +466,7 @@ export const handleChat: RequestHandler<{}, ChatResponse, ChatRequest> = (req, r
     }
 
     // Store slot value
-    if (userInput === "skip" || userInput === "ഒഴിവാക്കുക") {
+    if (userInput === "skip" || userInput === "à´’à´´à´¿à´µà´¾à´•àµà´•àµà´•") {
       newChatState.slots[currentSlot] = "N/A";
     } else if (
       currentSlot.includes("_kg") ||
@@ -513,3 +513,6 @@ export const handleChat: RequestHandler<{}, ChatResponse, ChatRequest> = (req, r
     });
   }
 };
+
+
+
